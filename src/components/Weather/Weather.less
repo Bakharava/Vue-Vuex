@@ -1,0 +1,111 @@
+@import "../../styles/styles";
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  width: @width-sm;
+  height: @height-sss * 4;
+  border: 1px solid @color-extra-light-grey;
+  border-radius: 5%;
+  position: relative;
+  &__background {
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    flex-basis: 75%;
+    font-family: @font-added;
+    .weather__settings-icon {
+      display: flex;
+      margin: @base-margin * 2 ;
+      justify-content: flex-end;
+      color: @color-basic-white;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+    .weather__city {
+      display: flex;
+      justify-content: center;
+      font-size: @font-size-md;
+      color: @color-basic-white;
+      text-transform: uppercase;
+      margin: @base-margin 0;
+    }
+    .weather__country {
+      display: flex;
+      justify-content: center;
+      color: @color-basic-white;
+      margin: 0 0 @base-margin * 1.5 0;
+      font-size: @font-size-sm;
+      opacity: 0.8;
+    }
+    .weather__degree {
+      display: flex;
+      justify-content: center;
+      font-size: @font-size-xxl;
+      color: @color-basic-white;
+      margin: @base-margin * 2 ;
+      i {
+        color: blue;
+      }
+
+    }
+    .weather__date {
+      display: flex;
+      justify-content: center;
+      color: @color-basic-medium-gray;
+      margin: @base-margin * 1.5 ;
+      font-size: @font-size-xs;
+    }
+    .weather__wind{
+      display: flex;
+      justify-content: flex-end;
+      color: @color-basic-white;
+      margin: @base-margin * 1.5 ;
+      align-items: center;
+      font-size: @font-size-md;
+      &-icon {
+        margin-right: @base-margin * 0.5;
+      }
+    }
+  }
+  &__temperature {
+    display: flex;
+    flex-basis: 25%;
+    flex-direction: column;
+    .weather__today {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-bottom: 1px solid @color-extra-light-grey;
+      color: @color-basic-plum;
+      flex-basis: 50%;
+    }
+    .weather__tomorrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      color: @color-basic-grey;
+      flex-basis: 50%;
+    }
+    .weather__fiveDays {
+      display: flex;
+      flex-basis: 50%;
+      align-items: center;
+      color: @color-basic-grey;
+      font-size: @font-size-ss;
+      .day {
+        flex-basis: 20%;
+       margin-left: 2%;
+
+      }
+    }
+  }
+  .morning {
+    background: linear-gradient(to top, @color-additional-light-blue 30%, @color-additional-blue 70%);
+  }
+  .afternoon {
+    background: linear-gradient(to top, @color-additional-yellow 20%, @color-basic-raspberry 80%);
+  }
+  .night {
+    background: linear-gradient(to top, @color-additional-light-pink 20%, @color-additional-dark-violet 80%);
+  }
+}

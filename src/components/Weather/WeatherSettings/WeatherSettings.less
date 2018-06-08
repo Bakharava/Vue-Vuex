@@ -1,0 +1,50 @@
+@import "../../../styles/styles";
+
+.weatherSettings {
+  position: absolute;
+  height: @height-sss * 1.5;
+  width: @width-sss;
+  background-color: @color-basic-white;
+ opacity: 0.9;
+  top: @base-shift * 1.2;
+  right: @base-shift * 4.4;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,0.2);
+
+  .settings-item {
+    display: flex;
+    justify-content: center;
+    flex-basis: 25%;
+    border-bottom: 1px solid @color-extra-light-grey;
+    cursor: pointer;
+    align-items: center;
+    font-size: @font-size-md;
+    color: @color-extra-black;
+  }
+  .settings-item:hover {
+    background-color: @color-basic-grey;
+    color: @color-basic-white;
+  }
+ /* .itemmorning {
+    background-color: @color-additional-blue;
+    color: @color-additional-light-blue;
+  }
+  .itemafternoon {
+    background-color: @color-basic-raspberry;
+    color: @color-additional-yellow;
+  }
+  .itemnight {
+    background-color: @color-additional-dark-violet;
+    color: @color-additional-light-pink;
+  }*/
+}
+.weatherSettings:after {
+  content: '';
+  position: absolute;
+  right: @base-shift  * -1.5;
+  top: @base-shift;
+  border: 5px solid transparent;
+  border-left: 10px solid @color-basic-white;
+
+}

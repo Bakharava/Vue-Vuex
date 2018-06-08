@@ -1,0 +1,49 @@
+{
+  "data": {
+    "articles": [
+      {
+        "id": 1,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      },
+      {
+        "id": 2,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      },
+      {
+        "id": 3,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      },
+      {
+        "id": 4,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      },
+      {
+        "id": 5,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      },
+      {
+        "id": 6,
+        "urlToImage": "../image/news.jpeg",
+        "url": "www.google.com",
+        "title": "Test",
+        "publishedAt": "12/03/2018"
+      }
+    ],
+    "totalResults": 33
+  }
+}

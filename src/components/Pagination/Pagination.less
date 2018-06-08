@@ -1,0 +1,47 @@
+@import "../../styles/styles";
+
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: @base-margin;
+  &__page {
+    width: @base-width * 2.5;
+    height: @base-height * 3;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: @color-additional-dark-blue;
+    font-size: @font-size-md;
+    cursor: pointer;
+  }
+  .active {
+    background-color: @color-additional-dark-blue;
+    color: @color-basic-white;
+  }
+  &__page:hover:not(.active) {
+    background-color: @color-extra-grey;
+  }
+  &__quot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: @base-width * 2.5;
+    height: @base-height * 3;
+    margin: 0 @base-margin-ss 0 @base-margin-ss;
+    color: @color-additional-dark-blue;
+    cursor: pointer;
+  }
+  &__quot:hover {
+    background-color: @color-extra-grey;
+  }
+  &__dot {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: @font-size-md;
+    color: @color-additional-dark-blue;
+    margin: 0 @base-margin-ss @base-margin-sss @base-margin-ss;
+  }
+}

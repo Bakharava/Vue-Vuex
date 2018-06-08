@@ -1,0 +1,109 @@
+@import "../../styles/styles";
+.wrapper {
+  flex: 0 0 auto;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: @base-height-xl;
+    background: @color-additional-dark-blue;
+    &__link {
+      display: flex;
+      justify-content: space-between;
+      font-family: @font-added;
+      position: absolute;
+      width: 80%;
+      color: #ffffff;
+      text-transform: uppercase;
+      .header__logo {
+        flex-basis: 20%;
+        &-img {
+          height: @base-height-md;
+        }
+      }
+      .header__link-news {
+        display: flex;
+        flex-basis: 60%;
+        justify-content: flex-end;
+        align-items: center;
+        .type {
+          margin: 0 @base-margin;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        .type:hover {
+          opacity: 0.7;
+        }
+        .active {
+          opacity: 0.7;
+        }
+        .link-home {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .header__search {
+        flex-basis: 20%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .search-news {
+          position: relative;
+          margin-left: 10px;
+          input {
+            outline: none;
+          }
+          input[type=search] {
+            position: absolute;
+            top: -11px;
+            right: -8px;
+            background: @color-additional-dark-blue url(../../assets/icon/search.png) no-repeat 4px center;
+            background-size: 14px;
+            border: solid 1px @color-basic-white;
+            width: @base-width * 2.5;
+            height: @base-height * 2.5;
+            padding-left: @base-padding;
+            cursor: pointer;
+            content: '\f002';
+            color: transparent;
+            -webkit-border-radius: 10em;
+            -moz-border-radius: 10em;
+            border-radius: 10em;
+
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            transition: all .5s;
+          }
+          input[type=search]:focus {
+            width: @width-sss * 1.3;
+            padding-left: @base-padding * 2.3;
+            cursor: text;
+            color: @color-basic-white;
+          }
+          input::-webkit-search-cancel-button, input::-webkit-search-decoration {
+            display: none;
+          }
+          input:-moz-placeholder {
+            color: transparent;
+          }
+          input::-webkit-input-placeholder {
+            color: transparent;
+          }
+        }
+        .link-social {
+          width: @base-width;
+          height: @base-height;
+          margin-left: @base-margin * 3;
+          color: @color-basic-white;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        a:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
