@@ -18,7 +18,7 @@
                  {{weatherData.wind.speed}} {{weatherData.units.speed}}
             </div>
         </div>
-        <WeatherSettings v-if="showWeatherSettings" >
+        <weather-settings v-if="showWeatherSettings" >
                 <div  v-bind:class="['settings-item', 'item' + colorThem]"
                      :key="item"
                      v-for="item in settingsItemOptions"
@@ -26,7 +26,7 @@
                      @blur="closeMenu">
                     {{item}}
                 </div>
-        </WeatherSettings>
+        </weather-settings>
         <div class="weather__temperature">
             <div class="weather__today">Today:
                 <span v-if="weatherData.item && !showFarengheit">

@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <SubHeader/>
+        <sub-header/>
     </div>
 </template>
 
