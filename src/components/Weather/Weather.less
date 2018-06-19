@@ -29,6 +29,31 @@
       color: red;
       text-transform: uppercase;
       margin: @base-margin 0;
+      .arrow-icon{
+        display: flex;
+        align-items: center;
+        margin-left: @base-margin-sss;
+        cursor: pointer;
+      }
+    }
+    .weather__cities-list {
+      position: absolute;
+      left: 20%;
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      opacity: 0.9;
+      background-color: @color-basic-white;
+      color: @color-basic-medium-gray;
+      box-shadow: 0 3px 12px 0 rgba(0,0,0,0.2);
+      .city-item {
+        padding-left: 5%;
+      }
+      .city-item:hover {
+        cursor: pointer;
+        background-color: @color-basic-grey;
+        color: @color-basic-white;
+      }
     }
     .weather__country {
       display: flex;

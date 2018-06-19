@@ -13,7 +13,7 @@ const state = {
     showFarengheit: false,
     showForecast: false,
     city: 'London'
-   // showCities: false
+   // searchString: false
 };
 const getters = {
     getCities: state => {
@@ -26,6 +26,9 @@ const getters = {
 
 const mutations = {
     selectCity(state, {city}) {
+        state.city = city
+    },
+    enterCity(state, {city}) {
         state.city = city
     }
 };
@@ -49,6 +52,9 @@ const actions = {
     },*/
     selectCity({state, commit}, item) {
         commit('selectCity', {city: item})
+    },
+    enterCity({state, commit}, param) {
+        commit('selectCity', {city: param})
     }
 }
 

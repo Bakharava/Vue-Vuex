@@ -3,14 +3,14 @@
         <div v-bind:class="[ 'weather__background', colorThem]">
             <div class="weather__settings-icon fa fa-cog" @click="showWeatherSettings=!showWeatherSettings"></div>
             <div class="weather__city" v-if="city">{{city}}
-                <span class="fa fa-angle-down" @click="showCitiesList"></span>
+                <span v-bind:class="[!showCities ? 'fa fa-angle-down' : 'fa fa-angle-up', 'arrow-icon']" @click="showCitiesList"></span>
             </div>
 
             <div class="weather__cities-list" v-if="showCities">
-                <div v-for="item in cities" @click="selectCity(item)" :key="item">
+                <div class="city-item" v-for="item in cities" @click="selectCity(item)" :key="item">
                     {{item}}
                 </div>
-                <input type="text" value="" v-bind="searchString" :onkeyup="selectCity(searchString)"/>
+                <input type="text"  v-model="searchString" @keyup="enterCity(searchString)"/>
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
             <div class="weather__degree"
@@ -106,6 +106,7 @@
         methods: {
             ...mapActions('weather', [
                 'selectCity',
+                'enterCity',
             ]),
             getWeather() {
                 axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${this.city}")&format=json`)
