@@ -21,6 +21,9 @@ const getters = {
     },
     getCity: state => {
         return state.city
+    },
+    GetWeatherData: state=> {
+        return state.weatherData
     }
 };
 
@@ -30,31 +33,36 @@ const mutations = {
     },
     enterCity(state, {city}) {
         state.city = city
+    },
+    setWeatherData(state, {data}) {
+        state.weatherData = data
     }
 };
 
 
 const actions = {
-/*    async getWeather({ commit }) {
+    async getWeather({ commit }, query) {
        try {
-         const data = await axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${city}")&format=json`)
-           console.log(data)
-           commit('setWeatherData',)
-              /!* .then(res => {
+         const data = await axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${query}")&format=json`)
+           const weather = await data
+        //   console.log(data)
+           commit('setWeatherData', {weatherData: weather})
+              /* .then(res => {
                    this.weatherData = res.data.query.results.channel;
                    console.log(this.weatherData)
                }).catch((error) => {
                console.log(error);
-           });*!/
+           });*/
        } catch (e) {
-           
+           console.log(e)
        }
-    },*/
-    selectCity({state, commit}, item) {
+    },
+    selectCity({commit}, item) {
         commit('selectCity', {city: item})
     },
-    enterCity({state, commit}, param) {
-        commit('selectCity', {city: param})
+    enterCity({commit}, param) {
+    //    console.log(param);
+        commit('enterCity', {city: param })
     }
 }
 

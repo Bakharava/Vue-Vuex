@@ -10,7 +10,7 @@
                 <div class="city-item" v-for="item in cities" @click="selectCity(item)" :key="item">
                     {{item}}
                 </div>
-                <input type="text"  v-model="searchString" @keyup="enterCity(searchString)"/>
+                <input type="text" v-bind:value="searchString" @keyup.enter="enterCity(searchString)"/>
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
             <div class="weather__degree"
@@ -84,7 +84,7 @@
         },
         computed: {
             ...mapState({
-                weatherData: state => state.weather.weatherData,
+            //    weatherData: state => state.weather.weatherData,
                 settingsItemOptions: state => state.weather.settingsItemOptions,
                 date: state => state.weather.date,
                 colorThem: state => state.weather.colorThem,
@@ -95,7 +95,8 @@
             }),
             ...mapGetters('weather', {
                 cities: 'getCities',
-                city: 'getCity'
+                city: 'getCity',
+                weatherData: 'GetWeatherData'
             })
         },
         mounted() {
@@ -108,7 +109,7 @@
                 'selectCity',
                 'enterCity',
             ]),
-            getWeather() {
+      /*      getWeather() {
                 axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${this.city}")&format=json`)
                     .then(res => {
                         this.weatherData = res.data.query.results.channel;
@@ -116,7 +117,7 @@
                     }).catch((error) => {
                     console.log(error);
                 });
-            },
+            },*/
             getDate() {
                 let date = new Date();
                 return this.date = date.getHours();
