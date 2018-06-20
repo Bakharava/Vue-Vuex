@@ -7,10 +7,10 @@
             </div>
 
             <div class="weather__cities-list" v-if="showCities">
-                <div class="city-item" v-for="item in cities" @click="selectCity(item)" :key="item">
+                <div class="city-item" v-for="item in cities" @click="changeCity(item)" :key="item">
                     {{item}}
                 </div>
-                <input type="text" v-bind:value="searchString" @keyup.enter="enterCity(searchString)"/>
+                <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="Type your city" type="text" v-model="searchString" @keyup.enter="changeCity(searchString)"/>
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
             <div class="weather__degree"
@@ -39,19 +39,19 @@
         <div class="weather__temperature">
             <div class="weather__today">Today:
                 <span v-if="weatherData.item && !showFarengheit">
-                    {{weatherData.item.forecast[0].high | convertFromFarengheit}} &deg;C - {{weatherData.item.forecast[0].low | convertFromFarengheit}} &deg;C
+                    {{weatherData.item.forecast[0].low | convertFromFarengheit}} &deg;C - {{weatherData.item.forecast[0].high | convertFromFarengheit}} &deg;C
                 </span>
 
                 <span v-if="weatherData.item && showFarengheit">
-                    {{weatherData.item.forecast[0].high }} &deg;F - {{weatherData.item.forecast[0].low }} &deg;F
+                    {{weatherData.item.forecast[0].low }} &deg;F - {{weatherData.item.forecast[0].high }} &deg;F
                 </span>
             </div>
             <div class="weather__tomorrow" v-if="!showForecast">Tomorrow:
                 <span v-if="weatherData.item && !showFarengheit">
-                    {{weatherData.item.forecast[1].high | convertFromFarengheit}} &deg;C - {{weatherData.item.forecast[1].low | convertFromFarengheit}} &deg;C
+                    {{weatherData.item.forecast[1].low | convertFromFarengheit}} &deg;C - {{weatherData.item.forecast[1].high | convertFromFarengheit}} &deg;C
                 </span>
                 <span v-if="weatherData.item && showFarengheit">
-                    {{weatherData.item.forecast[1].high }} &deg;F - {{weatherData.item.forecast[1].low }} &deg;F
+                    {{weatherData.item.forecast[1].low }} &deg;F - {{weatherData.item.forecast[1].high }} &deg;F
                 </span>
             </div>
             <div class="weather__fiveDays" v-if="showForecast">
@@ -69,9 +69,12 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import { mapGetters, mapState, mapActions } from 'vuex'
     import WeatherSettings from "./WeatherSettings/WeatherSettings";
+
+    const morning = 6;
+    const afternoon = 12;
+    const night = 19;
 
     export default {
         name: "Weather",
@@ -79,16 +82,15 @@
         data() {
             return {
                 showCities: false,
-                searchString: ''
+                searchString: '',
+                date: '',
+                colorThem: '',
+                showWeatherSettings: false
             }
         },
         computed: {
             ...mapState({
-            //    weatherData: state => state.weather.weatherData,
                 settingsItemOptions: state => state.weather.settingsItemOptions,
-                date: state => state.weather.date,
-                colorThem: state => state.weather.colorThem,
-                showWeatherSettings: state => state.weather.showWeatherSettings,
                 showWind: state => state.weather.showWind,
                 showFarengheit: state => state.weather.showFarengheit,
                 showForecast: state => state.weather.showForecast,
@@ -111,23 +113,20 @@
                 'enterCity',
                 'getWeather'
             ]),
-      /*      getWeather() {
-                axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${this.city}")&format=json`)
-                    .then(res => {
-                        this.weatherData = res.data.query.results.channel;
-                        console.log(this.weatherData)
-                    }).catch((error) => {
-                    console.log(error);
-                });
-            },*/
+            changeCity(item) {
+                this.selectCity(item);
+                this.getWeather(item);
+                this.showCities = false;
+                this.searchString = '';
+            },
             getDate() {
                 let date = new Date();
                 return this.date = date.getHours();
             },
             getColorClass() {
-                if (this.date < 12 && this.date > 6) {
+                if (this.date < afternoon && this.date > morning) {
                     this.colorThem = 'morning';
-                } else if (this.date < 19 && this.date >= 12) {
+                } else if (this.date < night && this.date >= afternoon) {
                     this.colorThem = 'afternoon';
                 } else {
                     this.colorThem = 'night';

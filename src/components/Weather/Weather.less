@@ -25,8 +25,7 @@
       display: flex;
       justify-content: center;
       font-size: @font-size-md;
-    //  color: @color-basic-white;
-      color: red;
+      color: @color-basic-white;
       text-transform: uppercase;
       margin: @base-margin 0;
       .arrow-icon{
@@ -46,6 +45,7 @@
       background-color: @color-basic-white;
       color: @color-basic-medium-gray;
       box-shadow: 0 3px 12px 0 rgba(0,0,0,0.2);
+      z-index: 10;
       .city-item {
         padding-left: 5%;
       }
@@ -53,6 +53,26 @@
         cursor: pointer;
         background-color: @color-basic-grey;
         color: @color-basic-white;
+      }
+      .city-input {
+        border: none;
+        color: @color-basic-white;
+        padding-left: 5%;
+      }
+      .city-input::-webkit-input-placeholder{
+        color: @color-basic-white;
+      }
+      .city-item::-moz-placeholder{
+        color: @color-basic-white;
+      }
+      .input-morning {
+        background-color: @color-additional-blue;
+      }
+      .input-afternoon {
+        background-color: @color-basic-raspberry;
+      }
+      .input-night {
+        background-color: @color-additional-dark-violet;
       }
     }
     .weather__country {

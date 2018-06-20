@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import weather from './modules/weather'
+import weather from './modules/weather/index';
 //import products from './modules/products'
 //import createLogger from '../../../src/plugins/logger'
 

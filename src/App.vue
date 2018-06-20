@@ -20,13 +20,13 @@ export default {
       Content,
       Header
   },
-    data() {
+   /* data() {
       return {
           newsParam: ''
       }
     },
     methods: {
-    }
+    }*/
 }
 </script>
 
