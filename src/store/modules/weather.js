@@ -1,9 +1,8 @@
-import axios from 'axios';
-
+import api from '../../api/api';
 
 //initial state for weather
 const state = {
-    weatherData: [],
+    weatherData: {},
     settingsItemOptions: [String.fromCharCode(176) + 'F', String.fromCharCode(176) + 'C', "wind", "5 days"],
     date: '',
     colorThem: '',
@@ -22,7 +21,7 @@ const getters = {
     getCity: state => {
         return state.city
     },
-    GetWeatherData: state=> {
+    getWeatherData: state=> {
         return state.weatherData
     }
 };
@@ -34,8 +33,8 @@ const mutations = {
     enterCity(state, {city}) {
         state.city = city
     },
-    setWeatherData(state, {data}) {
-        state.weatherData = data
+    setWeatherData(state, data) {
+        state.weatherData = data;
     }
 };
 
@@ -43,17 +42,11 @@ const mutations = {
 const actions = {
     async getWeather({ commit }, query) {
        try {
-         const data = await axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${query}")&format=json`)
-           const weather = await data
-        //   console.log(data)
-           commit('setWeatherData', {weatherData: weather})
-              /* .then(res => {
-                   this.weatherData = res.data.query.results.channel;
-                   console.log(this.weatherData)
-               }).catch((error) => {
-               console.log(error);
-           });*/
+         const res = await api().get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${query}")&format=json`);
+           const weather = await res.data.query.results.channel
+           commit('setWeatherData',  weather)
        } catch (e) {
+           // eslint-disable-next-line no-console
            console.log(e)
        }
     },
@@ -64,7 +57,7 @@ const actions = {
     //    console.log(param);
         commit('enterCity', {city: param })
     }
-}
+};
 
 export default  {
     namespaced: true,

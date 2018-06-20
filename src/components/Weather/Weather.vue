@@ -96,11 +96,12 @@
             ...mapGetters('weather', {
                 cities: 'getCities',
                 city: 'getCity',
-                weatherData: 'GetWeatherData'
+                weatherData: 'getWeatherData'
             })
         },
         mounted() {
-            this.getWeather();
+           // this.$store.dispatch('getWeather');
+            this.getWeather(this.city);
             this.getDate();
             this.getColorClass();
         },
@@ -108,6 +109,7 @@
             ...mapActions('weather', [
                 'selectCity',
                 'enterCity',
+                'getWeather'
             ]),
       /*      getWeather() {
                 axios.get(`https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${this.city}")&format=json`)
