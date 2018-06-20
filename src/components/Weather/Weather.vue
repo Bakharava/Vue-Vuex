@@ -14,12 +14,12 @@
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
             <div class="weather__degree"
-                 v-if="weatherData.units && !showFarengheit">
-                {{weatherData.ttl | convertFromFarengheit}} &deg;C
+                 v-if="weatherData.item && !showFarengheit">
+                {{weatherData.item.condition.temp | convertFromFarengheit}} &deg;C
                 <!--{{weatherData.units.temperature}}--> </div>
             <div class="weather__degree"
-                 v-if="weatherData.units && showFarengheit">
-                {{weatherData.ttl}} &deg;F
+                 v-if="weatherData.item && showFarengheit">
+                {{weatherData.item.condition.temp}} &deg;F
             </div>
             <div class="weather__date" v-if="weatherData.item">{{weatherData.item.condition.date}}</div>
             <div class="weather__wind fa" v-if="weatherData.wind && showWind">
