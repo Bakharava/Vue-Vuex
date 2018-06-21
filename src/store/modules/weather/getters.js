@@ -7,5 +7,9 @@ export const getters = {
     },
     getWeatherData: state=> {
         return state.weatherData
-    }
+    },
+    getSettingsItemOptions: state=> {
+        return state.settingsItemOptions
+    },
+    getColorThem: state => state.colorThem
 };

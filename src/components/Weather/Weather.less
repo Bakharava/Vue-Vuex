@@ -20,6 +20,9 @@
       color: @color-basic-white;
       opacity: 0.7;
       cursor: pointer;
+      width: @base-width;
+      position: relative;
+      left: @base-shift * 20;
     }
     .weather__city {
       display: flex;
@@ -58,6 +61,7 @@
         border: none;
         color: @color-basic-white;
         padding-left: 5%;
+        height: @base-height * 2;
       }
       .city-input::-webkit-input-placeholder{
         color: @color-basic-white;

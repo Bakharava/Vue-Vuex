@@ -13,5 +13,11 @@ export const actions = {
     },
     selectCity({commit}, item) {
         commit('selectCity', {city: item})
+    },
+    changeFivedaysText({commit}, item){
+        commit('setFivedaysText', item)
+    },
+    getColorClass({commit}, date) {
+        commit('setColorClass', date)
     }
 };

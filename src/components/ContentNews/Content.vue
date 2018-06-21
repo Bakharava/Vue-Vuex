@@ -30,33 +30,33 @@
 </template>
 
 <script>
-    import axios from 'axios';
+ //   import axios from 'axios';
     import NewsCard from "../NewsCard/NewsCard";
     import Pagination from "../Pagination/Pagination";
     import Loader from "../Loader/Loader";
     import { EventBus } from "../EventBus";
     import Weather from "../Weather/Weather";
-    import fakeImage from '../../assets/image/news.jpg';
-
-    const apiKey = 'b8d411a4e22745308fab1a665115c094';
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "Content",
         components: {Weather, Pagination, NewsCard, Loader},
         data() {
             return {
-                result: [],
-                allNewsLength: '',
-                loading: true,
-                newsUrlParam: 'top-headlines?sources=bbc-news,the-next-web,the-verge',
-                pageNumberParam: 1,
-                language: 'en',
                 pageSize: 20,
-                fakeImage: fakeImage
             }
         },
+        computed: {
+            ...mapGetters('content', {
+                result: 'getNewsResult',
+                newsUrlParam: 'getNewsUrlParam',
+                pageNumberParam: 'getPageNumber',
+                loading: 'getIsLoading',
+                allNewsLength: 'getAllNewsLength'
+            })
+        },
         mounted() {
-            this.getNews(this.newsUrlParam);
+            this.getNews(this.newsUrlParam, this.pageNumberParam);
         },
         created() {
             EventBus.$on('newsUrlChange', (type) => {
@@ -70,8 +70,11 @@
             })
         },
         methods: {
-            getNews(param) {
-                const newsUrl = `https://newsapi.org/v2/${param}&language=${this.language}&pageSize=${this.pageSize}&page=${this.pageNumberParam}&apiKey=${apiKey}`;
+                ...mapActions('content', [
+                    'getNews',
+                ]),
+           /* getNews(param) {
+                const newsUrl = `https://newsapi.org/v2/${param}&language=${language}&pageSize=${this.pageSize}&page=${this.pageNumberParam}&apiKey=${apiKey}`;
                 axios.get(newsUrl).then(response => {
                     this.loading = false;
                     this.result = response.data.articles;
@@ -79,7 +82,7 @@
                 }).catch((error) => {
                     console.log(error);
                 });
-            },
+            },*/
             changePage(page) {
                 this.pageNumberParam = page;
                 this.getNews(this.newsUrlParam)

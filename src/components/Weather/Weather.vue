@@ -1,16 +1,19 @@
 <template>
     <div class="weather">
         <div v-bind:class="[ 'weather__background', colorThem]">
-            <div class="weather__settings-icon fa fa-cog" @click="showWeatherSettings=!showWeatherSettings"></div>
+            <div class="weather__settings-icon fa fa-cog" @click="showWeatherSettings=!showWeatherSettings"
+                 @blur="closeMenu"></div>
             <div class="weather__city" v-if="city">{{city}}
-                <span v-bind:class="[!showCities ? 'fa fa-angle-down' : 'fa fa-angle-up', 'arrow-icon']" @click="showCitiesList"></span>
+                <span v-bind:class="[!showCities ? 'fa fa-angle-down' : 'fa fa-angle-up', 'arrow-icon']"
+                      @click="showCitiesList"></span>
             </div>
 
             <div class="weather__cities-list" v-if="showCities">
                 <div class="city-item" v-for="item in cities" @click="changeCity(item)" :key="item">
                     {{item}}
                 </div>
-                <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="Type your city" type="text" v-model="searchString" @keyup.enter="changeCity(searchString)"/>
+                <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="Type your city" type="text"
+                       v-model="searchString" @keyup.enter="changeCity(searchString)"/>
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
             <div class="weather__degree"
@@ -22,17 +25,16 @@
                 {{weatherData.item.condition.temp}} &deg;F
             </div>
             <div class="weather__date" v-if="weatherData.item">{{weatherData.item.condition.date}}</div>
-            <div class="weather__wind fa" v-if="weatherData.wind && showWind">
+            <div class="weather__wind" v-if="weatherData.wind && showWind">
                 <img class="weather__wind-icon" src="../../assets/image/wind-24px.png">
                 {{weatherData.wind.speed}} {{weatherData.units.speed}}
             </div>
         </div>
-        <weather-settings v-if="showWeatherSettings">
+        <weather-settings v-show="showWeatherSettings">
             <div v-bind:class="['settings-item', 'item' + colorThem]"
                  :key="item"
                  v-for="item in settingsItemOptions"
-                 @click="getSettings(item)"
-                 @blur="closeMenu">
+                 @click="getSettings(item)">
                 {{item}}
             </div>
         </weather-settings>
@@ -69,12 +71,10 @@
 </template>
 
 <script>
-    import { mapGetters, mapState, mapActions } from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import WeatherSettings from "./WeatherSettings/WeatherSettings";
 
-    const morning = 6;
-    const afternoon = 12;
-    const night = 19;
+    const degreeCode = String.fromCharCode(176);
 
     export default {
         name: "Weather",
@@ -84,34 +84,33 @@
                 showCities: false,
                 searchString: '',
                 date: '',
-                colorThem: '',
-                showWeatherSettings: false
+                showWeatherSettings: false,
+                showWind: false,
+                showFarengheit: false,
+                showForecast: false,
             }
         },
         computed: {
-            ...mapState({
-                settingsItemOptions: state => state.weather.settingsItemOptions,
-                showWind: state => state.weather.showWind,
-                showFarengheit: state => state.weather.showFarengheit,
-                showForecast: state => state.weather.showForecast,
-            }),
             ...mapGetters('weather', {
                 cities: 'getCities',
                 city: 'getCity',
-                weatherData: 'getWeatherData'
-            })
+                weatherData: 'getWeatherData',
+                settingsItemOptions: 'getSettingsItemOptions',
+                colorThem:'getColorThem'
+            }),
         },
         mounted() {
-           // this.$store.dispatch('getWeather');
             this.getWeather(this.city);
             this.getDate();
-            this.getColorClass();
+            this.getColorClass(this.date);
         },
         methods: {
             ...mapActions('weather', [
                 'selectCity',
                 'enterCity',
-                'getWeather'
+                'getWeather',
+                'changeFivedaysText',
+                'getColorClass'
             ]),
             changeCity(item) {
                 this.selectCity(item);
@@ -123,43 +122,40 @@
                 let date = new Date();
                 return this.date = date.getHours();
             },
-            getColorClass() {
-                if (this.date < afternoon && this.date > morning) {
-                    this.colorThem = 'morning';
-                } else if (this.date < night && this.date >= afternoon) {
-                    this.colorThem = 'afternoon';
-                } else {
-                    this.colorThem = 'night';
-                }
-                return this.colorThem;
-            },
             getSettings(item) {
                 if (item === 'wind') {
                     this.showWind = !this.showWind
                 }
-                if (item === String.fromCharCode(176) + 'F') {
+                if (item === degreeCode + 'F') {
                     this.showFarengheit = true;
                 }
-                if (item === String.fromCharCode(176) + 'C') {
+                if (item === degreeCode + 'C') {
                     this.showFarengheit = false;
                 }
                 if (item === '5 days') {
-                    this.showForecast = !this.showForecast;
+                    this.showForecast = true;
+                    if (this.showForecast) {
+                        this.changeFivedaysText(item);
+                    }
                 }
+                if (item === 'tomorrow') {
+                    this.showForecast = false;
+                    this.changeFivedaysText(item);
+                }
+                this.closeMenu();
             },
             closeMenu() {
-                return this.showWeatherSettings = false;
+                this.showWeatherSettings = false;
             },
             showCitiesList() {
-                 return this.showCities = !this.showCities
+                return this.showCities = !this.showCities
+            }
+        },
+        filters: {
+            convertFromFarengheit(value) {
+                return Math.round(((value) - 32) / 1.8)
+            }
         }
-    },
-    filters: {
-        convertFromFarengheit(value)
-        {
-            return Math.round(((value) - 32) / 1.8)
-        }
-    }
     }
 </script>
 
