@@ -34,9 +34,9 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import '../../assets/fonts/font-awesome/css/font-awesome.css'
     import SubHeader from "./SubHeader/SubHeader";
-    import { EventBus } from "../EventBus";
 
     export default {
         name: "Header",
@@ -48,14 +48,33 @@
                 isActive: "in world"
             }
         },
+        computed: {
+            ...mapGetters('content', {
+                newsUrlParam: 'getNewsUrlParam',
+                pageNumberParam: 'getPageNumber',
+            })
+        },
         methods: {
+            ...mapActions('content', [
+                'getNews',
+                'changeNewsType'
+            ]),
             getNewsType(type) {
-                EventBus.$emit('newsUrlChange', type);
+                this.changeNewsType(type);
+                this.getNews({
+                    url: this.newsUrlParam,
+                    pageNum: this.pageNumberParam
+                });
                 this.isActive = type;
                 this.searchParams='';
             },
             getSearchNews(searchParams) {
-                EventBus.$emit('getSearchNews', searchParams);
+                this.changeNewsType(searchParams);
+                const newTypeParam = `everything?q=${searchParams}`;
+                this.getNews({
+                    url: newTypeParam,
+                    pageNum: this.pageNumberParam
+                });
                 this.isActive = '';
                 this.searchParams = '';
             }

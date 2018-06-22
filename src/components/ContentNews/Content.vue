@@ -6,23 +6,22 @@
                     <div class="content__news-latest-text">Latest posts</div>
                 </div>
                 <div class="content__news-posts" v-if="!loading">
-                    <news-card :key="article.id" v-for="article in result" >
+                    <news-card :key="article.id" v-for="article in result">
                         <a class="newsCard__link" :href="article.url" target="_blank">
-                            <img  class="newsCard__link-img" :src="article.urlToImage ? article.urlToImage : fakeImage" :alt="article.title">
+                            <img class="newsCard__link-img" :src="article.urlToImage ? article.urlToImage : fakeImage"
+                                 :alt="article.title">
                             <div class="newsCard__news-title">{{article.title ? article.title : " "}}</div>
-                            <p class="newsCard__news-time">{{article.publishedAt ? article.publishedAt.replace(/[\T\Z]/g, ' ') : " "}}</p>
+                            <p class="newsCard__news-time">{{article.publishedAt ?
+                                article.publishedAt.replace(/[\T\Z]/g, ' ') : " "}}</p>
                         </a>
                     </news-card>
                 </div>
                 <Loader v-if="loading"/>
-                <pagination
-                        :allNewsLength="allNewsLength"
-                        :pageSize="pageSize"
-                        @activePageChanged="changePage"/>
+                <pagination />
             </div>
             <div class="content__additional">
                 <div class="weather-widget">
-                    <weather />
+                    <weather/>
                 </div>
             </div>
         </div>
@@ -30,13 +29,11 @@
 </template>
 
 <script>
- //   import axios from 'axios';
-    import NewsCard from "../NewsCard/NewsCard";
-    import Pagination from "../Pagination/Pagination";
-    import Loader from "../Loader/Loader";
-    import { EventBus } from "../EventBus";
-    import Weather from "../Weather/Weather";
-    import {mapGetters, mapActions} from 'vuex'
+    import NewsCard from '../NewsCard/NewsCard';
+    import Pagination from '../Pagination/Pagination';
+    import Loader from '../Loader/Loader';
+    import Weather from '../Weather/Weather';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: "Content",
@@ -52,41 +49,21 @@
                 newsUrlParam: 'getNewsUrlParam',
                 pageNumberParam: 'getPageNumber',
                 loading: 'getIsLoading',
-                allNewsLength: 'getAllNewsLength'
+      //          allNewsLength: 'getAllNewsLength',
+                fakeImage: 'getFakeImage'
             })
         },
         mounted() {
-            this.getNews(this.newsUrlParam, this.pageNumberParam);
-        },
-        created() {
-            EventBus.$on('newsUrlChange', (type) => {
-                this.pageNumberParam = 1;
-                this.newsUrlParam = type === 'in world' ?'top-headlines?sources=bbc-news,the-next-web,the-verge' : `top-headlines?category=${type}`;
-                this.getNews(this.newsUrlParam);
+            this.getNews({
+                url: this.newsUrlParam,
+                pageNum: this.pageNumberParam
             });
-            EventBus.$on('getSearchNews', searchParams => {
-               const param = `everything?q=${searchParams}`;
-                this.getNews(param);
-            })
         },
         methods: {
-                ...mapActions('content', [
-                    'getNews',
-                ]),
-           /* getNews(param) {
-                const newsUrl = `https://newsapi.org/v2/${param}&language=${language}&pageSize=${this.pageSize}&page=${this.pageNumberParam}&apiKey=${apiKey}`;
-                axios.get(newsUrl).then(response => {
-                    this.loading = false;
-                    this.result = response.data.articles;
-                    this.allNewsLength = response.data.totalResults;
-                }).catch((error) => {
-                    console.log(error);
-                });
-            },*/
-            changePage(page) {
-                this.pageNumberParam = page;
-                this.getNews(this.newsUrlParam)
-            }
+            ...mapActions('content', [
+                'getNews',
+                'setPageNumber'
+            ])
         }
     };
 

@@ -19,14 +19,7 @@ export default {
       Footer,
       Content,
       Header
-  },
-   /* data() {
-      return {
-          newsParam: ''
-      }
-    },
-    methods: {
-    }*/
+  }
 }
 </script>
 

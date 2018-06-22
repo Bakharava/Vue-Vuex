@@ -1,8 +1,9 @@
 
 export const state = {
     result: [],
-    allNewsLength: '',
+    allNewsLength: [],
     loading: true,
+    pages: [],
     newsUrlParam: 'top-headlines?sources=bbc-news,the-next-web,the-verge',
     pageNumberParam: 1,
     language: 'en',

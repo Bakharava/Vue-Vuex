@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export default(query) => {
+export default(url) => {
     return axios.create({
-        baseURL: `https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${query}")&format=json`,
+        baseURL: url,
         withCredentials: false,
         headers: {
             'Accept': 'application/json',

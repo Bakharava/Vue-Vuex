@@ -15,7 +15,7 @@
     font-family: @font-added;
     .weather__settings-icon {
       display: flex;
-      margin: @base-margin * 2 ;
+      margin: @base-margin * 2;
       justify-content: flex-end;
       color: @color-basic-white;
       opacity: 0.7;
@@ -31,7 +31,7 @@
       color: @color-basic-white;
       text-transform: uppercase;
       margin: @base-margin 0;
-      .arrow-icon{
+      .arrow-icon {
         display: flex;
         align-items: center;
         margin-left: @base-margin-sss;
@@ -47,7 +47,7 @@
       opacity: 0.9;
       background-color: @color-basic-white;
       color: @color-basic-medium-gray;
-      box-shadow: 0 3px 12px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
       z-index: 10;
       .city-item {
         padding-left: 5%;
@@ -62,12 +62,19 @@
         color: @color-basic-white;
         padding-left: 5%;
         height: @base-height * 2;
+        outline: none;
       }
-      .city-input::-webkit-input-placeholder{
+      .city-input::-webkit-input-placeholder {
         color: @color-basic-white;
       }
-      .city-item::-moz-placeholder{
+      .city-item::-moz-placeholder {
         color: @color-basic-white;
+      }
+      .city-input:focus::-webkit-input-placeholder {
+        color: transparent;
+      }
+      .city-input:focus::-moz-placeholder {
+        color: transparent;
       }
       .input-morning {
         background-color: @color-additional-blue;
@@ -92,7 +99,7 @@
       justify-content: center;
       font-size: @font-size-xxl;
       color: @color-basic-white;
-      margin: @base-margin * 2 ;
+      margin: @base-margin * 2;
       i {
         color: blue;
       }
@@ -102,14 +109,14 @@
       display: flex;
       justify-content: center;
       color: @color-basic-medium-gray;
-      margin: @base-margin * 1.5 ;
+      margin: @base-margin * 1.5;
       font-size: @font-size-xs;
     }
-    .weather__wind{
+    .weather__wind {
       display: flex;
       justify-content: flex-end;
       color: @color-basic-white;
-      margin: @base-margin * 1.5 ;
+      margin: @base-margin * 1.5;
       align-items: center;
       font-size: @font-size-md;
       &-icon {
@@ -144,7 +151,7 @@
       font-size: @font-size-ss;
       .day {
         flex-basis: 20%;
-       margin-left: 2%;
+        margin-left: 2%;
 
       }
     }

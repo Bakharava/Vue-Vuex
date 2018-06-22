@@ -12,7 +12,7 @@
                 <div class="city-item" v-for="item in cities" @click="changeCity(item)" :key="item">
                     {{item}}
                 </div>
-                <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="Type your city" type="text"
+                <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="type your city" type="text"
                        v-model="searchString" @keyup.enter="changeCity(searchString)"/>
             </div>
             <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
@@ -71,13 +71,13 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
-    import WeatherSettings from "./WeatherSettings/WeatherSettings";
+    import {mapGetters, mapActions} from 'vuex';
+    import WeatherSettings from './WeatherSettings/WeatherSettings';
 
     const degreeCode = String.fromCharCode(176);
 
     export default {
-        name: "Weather",
+        name: 'Weather',
         components: {WeatherSettings},
         data() {
             return {

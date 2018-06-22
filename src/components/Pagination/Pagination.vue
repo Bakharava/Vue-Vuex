@@ -4,12 +4,12 @@
            @click="decreasePages(pages)">&laquo;</a>
         <a v-bind:class="['pagination__page', page === isActive? 'active' : '', 'number'+page]"
            :key="page"
-           v-for="page in changePagesAmount"
+           v-for="page in pages"
            @click="getActivePage(page)"
         >{{page}}</a>
-        <div class="pagination__dot" v-if="totalPages > 3">. . .</div>
+        <div class="pagination__dot" v-if="totalPages > 6">. . .</div>
         <a v-bind:class="['pagination__page', totalPages === isActive? 'active' : '', 'number'+totalPages]"
-           v-if="totalPages > 3"
+           v-if="totalPages > 6"
            @click="getActivePage(totalPages)"
         >{{totalPages}}</a>
         <a class="pagination__quot"
@@ -19,68 +19,80 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+
+    const pageSize = 20;
     export default {
         name: "Pagination",
-        props: {
-            allNewsLength: Number,
-            pageSize: Number
-        },
         data() {
             return {
-                pages: [],
                 isActive: 1
             }
         },
         computed: {
-            changePagesAmount() {
+            ...mapGetters('content', {
+                newsUrlParam: 'getNewsUrlParam',
+                pageNumberParam: 'getPageNumber',
+                allNewsLength: 'getAllNewsLength',
+                pages: 'getPages'
+            }),
+          /*  changePagesAmount() {
                 return this.getPagesAmount(this.allNewsLength);
-            },
+            },*/
             totalPages() {
-                return Math.ceil(this.allNewsLength / this.pageSize);
+                return Math.ceil(this.allNewsLength / pageSize);
             },
-            changePageUp() {
+           /* changePageUp() {
                 return this.increasePages(this.pages);
             },
             changePageDown() {
                 return this.decreasePages(this.pages);
-            },
+            },*/
         },
 
         mounted() {
-            this.getPagesAmount();
+            this.getPagesAmount(this.allNewsLength)
         },
         methods: {
+            ...mapActions('content', [
+                'getNews',
+                'setPageNumber',
+                'setPagesAmount'
+            ]),
             getActivePage(page) {
-                this.$emit('activePageChanged', page);
+                this.setPageNumber(page);
+                this.getNews({
+                    url: this.newsUrlParam,
+                    pageNum: this.pageNumberParam
+                });
                 this.isActive = page;
             },
             decreasePages(pages) {
                 let arr = pages.map(page => {
-                    return page - 1
+                    return page - 5
                 });
-                console.log(arr);
-                return this.pages = arr
+                this.setPagesAmount(arr)
             },
             increasePages(pages) {
               let arr =   pages.map(page => {
-                    return page + 1
+                    return page + 5
                 });
-                console.log(arr);
-                return this.pages = arr;
+                this.setPagesAmount(arr)
             },
             getPagesAmount(amount) {
-                this.pages = [];
-                let pagesAmount = Math.ceil(amount / this.pageSize);
-                if (pagesAmount > 3) {
-                    for (let i = 0; i < 3; i++) {
-                        this.pages.push(i + 1);
+                let pages = [];
+                let pagesAmount = Math.ceil(amount / pageSize);
+                if(pagesAmount <= 6) {
+                    for (let i = 1; i <= pagesAmount; i++) {
+                        pages.push(i)
                     }
                 } else {
-                    for (let i = 0; i < pagesAmount; i++) {
-                        this.pages.push(i + 1);
+                    for (let i = 1; i <=6; i++) {
+                        pages.push(i);
                     }
                 }
-                return this.pages;
+                console.log(pages)
+                this.setPagesAmount(pages);
             }
         }
     }
