@@ -19,8 +19,8 @@
                         <input id="search-news-input"
                                type="search"
                                autocomplete="off"
-                               v-model="searchParams"
-                               @change="getSearchNews(searchParams)">
+                               v-model="searchParam"
+                               @change="getSearchNews(searchParam)">
                     </div>
                     <a class="link-social fa fa-twitter" href="https://www.twitter.com/" target="_blank"></a>
                     <a class="link-social fa fa-pinterest" href="https://www.pinterest.com/" target="_blank"></a>
@@ -44,7 +44,7 @@
         data() {
             return{
                 newsType:["in world", "sport", "music", "business"],
-                searchParams: '',
+                searchParam: '',
                 isActive: "in world"
             }
         },
@@ -57,7 +57,8 @@
         methods: {
             ...mapActions('content', [
                 'getNews',
-                'changeNewsType'
+                'changeNewsType',
+                'changeSearchParam'
             ]),
             getNewsType(type) {
                 this.changeNewsType(type);
@@ -68,15 +69,15 @@
                 this.isActive = type;
                 this.searchParams='';
             },
-            getSearchNews(searchParams) {
-                this.changeNewsType(searchParams);
-                const newTypeParam = `everything?q=${searchParams}`;
+            getSearchNews(searchParam) {
+                const newTypeParam = `everything?q=${searchParam}`;
+                this.changeSearchParam(newTypeParam);
                 this.getNews({
                     url: newTypeParam,
                     pageNum: this.pageNumberParam
                 });
                 this.isActive = '';
-                this.searchParams = '';
+                this.searchParam = '';
             }
         }
     }

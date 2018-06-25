@@ -1,3 +1,9 @@
+const tomorrow = 'tomorrow';
+const fiveDays = '5 days';
+const morning = 6;
+const afternoon = 12;
+const night = 19;
+
 export const mutations = {
     selectCity(state, {city}) {
         state.city = city
@@ -6,8 +12,6 @@ export const mutations = {
         state.weatherData = data;
     },
     setFivedaysText(state, text){
-        const tomorrow = 'tomorrow';
-        const fiveDays = '5 days';
         if(text === tomorrow){
             state.settingsItemOptions.splice(-1, 1, fiveDays)
         }
@@ -16,9 +20,6 @@ export const mutations = {
         }
     },
     setColorClass(state, date) {
-        const morning = 6;
-        const afternoon = 12;
-        const night = 19;
         if (date < afternoon && date > morning) {
             state.colorThem = 'morning';
         } else if (date < night && date >= afternoon) {

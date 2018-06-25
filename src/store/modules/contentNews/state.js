@@ -8,5 +8,6 @@ export const state = {
     pageNumberParam: 1,
     language: 'en',
   //  pageSize: 20,
-    fakeImage: '../../assets/image/news.jpg'
+    fakeImage: '../../assets/image/news.jpg',
+    activePage: 1
 };

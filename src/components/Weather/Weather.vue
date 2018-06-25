@@ -5,9 +5,9 @@
                  @blur="closeMenu"></div>
             <div class="weather__city" v-if="city">{{city}}
                 <span v-bind:class="[!showCities ? 'fa fa-angle-down' : 'fa fa-angle-up', 'arrow-icon']"
-                      @click="showCitiesList"></span>
+                      @click="showCitiesList">
+                </span>
             </div>
-
             <div class="weather__cities-list" v-if="showCities">
                 <div class="city-item" v-for="item in cities" @click="changeCity(item)" :key="item">
                     {{item}}
@@ -15,16 +15,20 @@
                 <input v-bind:class="['city-input', 'input-' + colorThem]" placeholder="type your city" type="text"
                        v-model="searchString" @keyup.enter="changeCity(searchString)"/>
             </div>
-            <div class="weather__country" v-if="weatherData.location">{{weatherData.location.country}}</div>
+            <div class="weather__country" v-if="weatherData.location">
+                {{weatherData.location.country}}
+            </div>
             <div class="weather__degree"
                  v-if="weatherData.item && !showFarengheit">
                 {{weatherData.item.condition.temp | convertFromFarengheit}} &deg;C
-                <!--{{weatherData.units.temperature}}--> </div>
+            </div>
             <div class="weather__degree"
                  v-if="weatherData.item && showFarengheit">
                 {{weatherData.item.condition.temp}} &deg;F
             </div>
-            <div class="weather__date" v-if="weatherData.item">{{weatherData.item.condition.date}}</div>
+            <div class="weather__date" v-if="weatherData.item">
+                {{weatherData.item.condition.date}}
+            </div>
             <div class="weather__wind" v-if="weatherData.wind && showWind">
                 <img class="weather__wind-icon" src="../../assets/image/wind-24px.png">
                 {{weatherData.wind.speed}} {{weatherData.units.speed}}
@@ -43,7 +47,6 @@
                 <span v-if="weatherData.item && !showFarengheit">
                     {{weatherData.item.forecast[0].low | convertFromFarengheit}} &deg;C - {{weatherData.item.forecast[0].high | convertFromFarengheit}} &deg;C
                 </span>
-
                 <span v-if="weatherData.item && showFarengheit">
                     {{weatherData.item.forecast[0].low }} &deg;F - {{weatherData.item.forecast[0].high }} &deg;F
                 </span>
@@ -59,11 +62,17 @@
             <div class="weather__fiveDays" v-if="showForecast">
                 <div class="day" v-if="weatherData.item && index < 5 && !showFarengheit" :key="index"
                      v-for="(day, index) in weatherData.item.forecast">
-                    <span>{{day.day}}</span> <br/>{{ day.high | convertFromFarengheit}} &deg;C
+                    <span>
+                        {{day.day}}
+                    </span>
+                    <br/>{{ day.high | convertFromFarengheit}} &deg;C
                 </div>
                 <div class="day" v-if="weatherData.item && index < 5 && showFarengheit" :key="index"
                      v-for="(day, index) in weatherData.item.forecast">
-                    <span>{{day.day}}</span> <br/>{{ day.high }} &deg;F
+                    <span>
+                        {{day.day}}
+                    </span>
+                    <br/>{{ day.high }} &deg;F
                 </div>
             </div>
         </div>
@@ -96,7 +105,7 @@
                 city: 'getCity',
                 weatherData: 'getWeatherData',
                 settingsItemOptions: 'getSettingsItemOptions',
-                colorThem:'getColorThem'
+                colorThem: 'getColorThem'
             }),
         },
         mounted() {

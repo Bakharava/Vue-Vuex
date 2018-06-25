@@ -38,18 +38,13 @@
     export default {
         name: "Content",
         components: {Weather, Pagination, NewsCard, Loader},
-        data() {
-            return {
-                pageSize: 20,
-            }
-        },
         computed: {
             ...mapGetters('content', {
                 result: 'getNewsResult',
                 newsUrlParam: 'getNewsUrlParam',
                 pageNumberParam: 'getPageNumber',
                 loading: 'getIsLoading',
-      //          allNewsLength: 'getAllNewsLength',
+               allNewsLength: 'getAllNewsLength',
                 fakeImage: 'getFakeImage'
             })
         },

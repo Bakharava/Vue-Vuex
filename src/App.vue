@@ -1,26 +1,26 @@
 <template>
-  <div id="app">
-    <div class="main-container">
-      <Header />
-      <Content />
-      <Footer/>
+    <div id="app">
+        <div class="main-container">
+            <Header/>
+            <Content/>
+            <Footer/>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import Header from "./components/Header/Header";
-import Content from "./components/ContentNews/Content";
-import Footer from "./components/Footer/Footer";
+    import Header from './components/Header/Header';
+    import Content from './components/ContentNews/Content';
+    import Footer from './components/Footer/Footer';
 
-export default {
-  name: 'app',
-  components: {
-      Footer,
-      Content,
-      Header
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Footer,
+            Content,
+            Header
+        }
+    };
 </script>
 
 <style src="./app.less"></style>

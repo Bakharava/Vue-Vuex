@@ -1,17 +1,20 @@
 <template>
     <div class="pagination">
         <a class="pagination__quot"
-           @click="decreasePages(pages)">&laquo;</a>
-        <a v-bind:class="['pagination__page', page === isActive? 'active' : '', 'number'+page]"
+           @click="decreasePages(pages)">
+            &laquo;
+        </a>
+        <a v-bind:class="['pagination__page', page === activePage? 'active' : '', 'number'+page]"
            :key="page"
            v-for="page in pages"
-           @click="getActivePage(page)"
-        >{{page}}</a>
-        <div class="pagination__dot" v-if="totalPages > 6">. . .</div>
-        <a v-bind:class="['pagination__page', totalPages === isActive? 'active' : '', 'number'+totalPages]"
+           @click="getActivePageData(page)">
+            {{page}}
+        </a>
+        <div class="pagination__dot" v-if="totalPagesSize > 6">. . .</div>
+        <a v-bind:class="['pagination__page', totalPagesSize === activePage? 'active' : '', 'number'+totalPages]"
            v-if="totalPages > 6"
-           @click="getActivePage(totalPages)"
-        >{{totalPages}}</a>
+           @click="getActivePage(totalPagesSize)"
+        >{{totalPagesSize}}</a>
         <a class="pagination__quot"
            @click="increasePages(pages)"
         >&raquo;</a>
@@ -25,75 +28,56 @@
     export default {
         name: "Pagination",
         data() {
-            return {
-                isActive: 1
-            }
+           return {
+               totalPagesSize: ''
+           }
         },
         computed: {
             ...mapGetters('content', {
                 newsUrlParam: 'getNewsUrlParam',
                 pageNumberParam: 'getPageNumber',
                 allNewsLength: 'getAllNewsLength',
-                pages: 'getPages'
+                pages: 'getPages',
+                activePage: 'getActivePage'
             }),
-          /*  changePagesAmount() {
-                return this.getPagesAmount(this.allNewsLength);
-            },*/
             totalPages() {
-                return Math.ceil(this.allNewsLength / pageSize);
+                return this.totalPagesSize = Math.ceil(this.allNewsLength / pageSize);
             },
-           /* changePageUp() {
-                return this.increasePages(this.pages);
-            },
-            changePageDown() {
-                return this.decreasePages(this.pages);
-            },*/
-        },
-
-        mounted() {
-            this.getPagesAmount(this.allNewsLength)
         },
         methods: {
             ...mapActions('content', [
                 'getNews',
                 'setPageNumber',
-                'setPagesAmount'
+                'setPagesAmount',
+                'setActivePage',
+                'changePagesValue'
             ]),
-            getActivePage(page) {
+            getActivePageData(page) {
                 this.setPageNumber(page);
+                this.setActivePage(page);
                 this.getNews({
                     url: this.newsUrlParam,
                     pageNum: this.pageNumberParam
                 });
-                this.isActive = page;
+
             },
             decreasePages(pages) {
-                let arr = pages.map(page => {
-                    return page - 5
-                });
-                this.setPagesAmount(arr)
+                console.log(pages);
+                if (this.totalPagesSize > 6 && pages[0] > 1 && pages[pages.length - 1] < this.totalPagesSize) {
+                    let arr = pages.map(page => {
+                        return page - 1;
+                    });
+                    this.changePagesValue(arr)
+                }
             },
             increasePages(pages) {
-              let arr =   pages.map(page => {
-                    return page + 5
-                });
-                this.setPagesAmount(arr)
-            },
-            getPagesAmount(amount) {
-                let pages = [];
-                let pagesAmount = Math.ceil(amount / pageSize);
-                if(pagesAmount <= 6) {
-                    for (let i = 1; i <= pagesAmount; i++) {
-                        pages.push(i)
-                    }
-                } else {
-                    for (let i = 1; i <=6; i++) {
-                        pages.push(i);
-                    }
+                if (this.totalPagesSize > 6 && pages[pages.length - 1] < this.totalPagesSize) {
+                    let arr = pages.map(page => {
+                        return page + 1
+                    });
+                    this.changePagesValue(arr)
                 }
-                console.log(pages)
-                this.setPagesAmount(pages);
-            }
+            },
         }
     }
 </script>
