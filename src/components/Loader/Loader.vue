@@ -1,6 +1,10 @@
 <template>
     <div class="spinner">
-        <div v-for="point in keyPoints" v-bind:class="['point', className+point]" :key="point"></div>
+        <div v-for="point in keyPoints"
+             v-bind:class="['point', className+point]"
+             :key="point">
+
+        </div>
     </div>
 </template>
 
@@ -19,7 +23,7 @@
         methods: {
             getKeyPoint() {
                 for (let i = 0; i <= 12; i++) {
-                    this.keyPoints.push(i+1);
+                    this.keyPoints.push(i + 1);
                 }
             }
         }

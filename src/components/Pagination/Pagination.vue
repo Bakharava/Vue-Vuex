@@ -1,6 +1,7 @@
 <template>
     <div class="pagination">
         <a class="pagination__quot"
+           v-if="totalPagesSize > 6 && pages[0] > 1"
            @click="decreasePages(pages)">
             &laquo;
         </a>
@@ -10,12 +11,13 @@
            @click="getActivePageData(page)">
             {{page}}
         </a>
-        <div class="pagination__dot" v-if="totalPagesSize > 6">. . .</div>
+        <div class="pagination__dot" v-if="totalPagesSize > 6 && pages[pages.length-1] !== totalPagesSize-1">. . .</div>
         <a v-bind:class="['pagination__page', totalPagesSize === activePage? 'active' : '', 'number'+totalPages]"
            v-if="totalPages > 6"
-           @click="getActivePage(totalPagesSize)"
+           @click="getActivePageData(totalPagesSize)"
         >{{totalPagesSize}}</a>
         <a class="pagination__quot"
+           v-if="totalPagesSize > 6 && pages[pages.length-1] < totalPagesSize-1 "
            @click="increasePages(pages)"
         >&raquo;</a>
     </div>
@@ -59,11 +61,19 @@
                     url: this.newsUrlParam,
                     pageNum: this.pageNumberParam
                 });
+                if (this.totalPagesSize > 6 && page === this.totalPagesSize) {
+                    let arr = [1,2,3,4,5,6];
+                    arr = arr.map(item => {
+                        return this.totalPagesSize - item;
+                    });
+                    arr.sort();
+                    this.changePagesValue(arr);
+                }
 
             },
             decreasePages(pages) {
                 console.log(pages);
-                if (this.totalPagesSize > 6 && pages[0] > 1 && pages[pages.length - 1] < this.totalPagesSize) {
+                if (this.totalPagesSize > 6 && pages[0] > 1) {
                     let arr = pages.map(page => {
                         return page - 1;
                     });
@@ -71,7 +81,7 @@
                 }
             },
             increasePages(pages) {
-                if (this.totalPagesSize > 6 && pages[pages.length - 1] < this.totalPagesSize) {
+                if (this.totalPagesSize > 6 && pages[pages.length - 1]+1 < this.totalPagesSize) {
                     let arr = pages.map(page => {
                         return page + 1
                     });

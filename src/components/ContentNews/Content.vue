@@ -17,7 +17,7 @@
                     </news-card>
                 </div>
                 <Loader v-if="loading"/>
-                <pagination />
+                <pagination/>
             </div>
             <div class="content__additional">
                 <div class="weather-widget">
@@ -44,7 +44,7 @@
                 newsUrlParam: 'getNewsUrlParam',
                 pageNumberParam: 'getPageNumber',
                 loading: 'getIsLoading',
-               allNewsLength: 'getAllNewsLength',
+                allNewsLength: 'getAllNewsLength',
                 fakeImage: 'getFakeImage'
             })
         },

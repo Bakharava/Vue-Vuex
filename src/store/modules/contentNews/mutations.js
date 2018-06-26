@@ -33,7 +33,6 @@ export const mutations = {
                     pages.push(i);
                 }
             }
-
             return state.pages = pages;
         }
         ,
