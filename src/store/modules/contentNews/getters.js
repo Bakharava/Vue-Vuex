@@ -1,4 +1,3 @@
-
 export const getters = {
     getNewsResult: (state) => state.result,
     getPageNumber: state => state.pageNumberParam,

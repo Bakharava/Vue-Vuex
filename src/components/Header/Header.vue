@@ -5,7 +5,7 @@
                 <div class="header__logo">
                     <img class="header__logo-img" src="../../assets/image/logo.svg"/>
                 </div>
-                <div class="header__link-news" >
+                <div class="header__link-news">
                     <!--<a class="fa fa-home link-home"></a>-->
                     <a v-bind:class="['type', type === isActive ? 'active' : '']"
                        v-for="type in newsType"
@@ -34,18 +34,18 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
-    import '../../assets/fonts/font-awesome/css/font-awesome.css'
-    import SubHeader from "./SubHeader/SubHeader";
+    import {mapGetters, mapActions} from 'vuex';
+    import '../../assets/fonts/font-awesome/css/font-awesome.css';
+    import SubHeader from './SubHeader/SubHeader';
 
     export default {
         name: "Header",
         components: {SubHeader},
         data() {
-            return{
-                newsType:["in world", "sport", "music", "business"],
+            return {
+                newsType: ['in world', 'sport', 'music', 'business'],
                 searchParam: '',
-                isActive: "in world"
+                isActive: 'in world'
             }
         },
         computed: {
@@ -67,7 +67,7 @@
                     pageNum: this.pageNumberParam
                 });
                 this.isActive = type;
-                this.searchParams='';
+                this.searchParam = '';
             },
             getSearchNews(searchParam) {
                 const newTypeParam = `everything?q=${searchParam}`;

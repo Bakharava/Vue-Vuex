@@ -6,7 +6,7 @@
   justify-content: center;
   margin-bottom: @base-margin;
   &__page {
-    width: @base-width * 2.5;
+    min-width: @base-width * 2.5;
     height: @base-height * 3;
     text-decoration: none;
     display: flex;
@@ -15,6 +15,7 @@
     color: @color-additional-dark-blue;
     font-size: @font-size-md;
     cursor: pointer;
+    padding: 0 @base-padding-sss;
   }
   .active {
     background-color: @color-additional-dark-blue;

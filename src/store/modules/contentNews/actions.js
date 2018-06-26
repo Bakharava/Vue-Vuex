@@ -10,32 +10,36 @@ export const actions = {
             const newsUrl = await api().get(`https://newsapi.org/v2/${url}&language=${language}&pageSize=${pageSize}&page=${pageNum}&apiKey=${apiKey}`);
             const result = await newsUrl.data.articles;
             const allNewsLength = await newsUrl.data.totalResults;
-            commit('setNewsResult', {data: result, allNewsLength: allNewsLength});
-            if(pageNum <=6){
-                commit('setPagesAmount')
+            const status = await newsUrl.data.status;
+            if (status === 'ok') {
+                commit('setNewsResult', {data: result, allNewsLength: allNewsLength});
+                if (pageNum <= 6) {
+                    commit('setPagesAmount');
+                }
+            } else {
+                commit('setNoData');
             }
 
-        } catch (e) {
-            // eslint-disable-next-line no-console
-            console.log(e)
+        } catch (error) {
+            commit('setError', error);
         }
     },
     changeNewsType({commit}, type) {
-        commit('setNewsType', type)
+        commit('setNewsType', type);
     },
     changeSearchParam({commit}, newTypeParam) {
-        commit('changeSearchParam', newTypeParam)
+        commit('changeSearchParam', newTypeParam);
     },
     setPageNumber({commit}, page) {
-        commit('setPageNumber', page)
+        commit('setPageNumber', page);
     },
     setPagesAmount({commit}) {
-        commit('setPagesAmount')
+        commit('setPagesAmount');
     },
     setActivePage({commit}, page) {
-        commit('setActivePage', page)
+        commit('setActivePage', page);
     },
     changePagesValue({commit}, arrayOfPages) {
-        commit('changePagesValue', arrayOfPages)
+        commit('changePagesValue', arrayOfPages);
     }
 };

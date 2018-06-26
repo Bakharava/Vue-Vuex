@@ -28,11 +28,11 @@
 
     const pageSize = 20;
     export default {
-        name: "Pagination",
+        name: 'Pagination',
         data() {
-           return {
-               totalPagesSize: ''
-           }
+            return {
+                totalPagesSize: ''
+            }
         },
         computed: {
             ...mapGetters('content', {
@@ -62,7 +62,7 @@
                     pageNum: this.pageNumberParam
                 });
                 if (this.totalPagesSize > 6 && page === this.totalPagesSize) {
-                    let arr = [1,2,3,4,5,6];
+                    let arr = [1, 2, 3, 4, 5, 6];
                     arr = arr.map(item => {
                         return this.totalPagesSize - item;
                     });
@@ -72,20 +72,19 @@
 
             },
             decreasePages(pages) {
-                console.log(pages);
                 if (this.totalPagesSize > 6 && pages[0] > 1) {
                     let arr = pages.map(page => {
                         return page - 1;
                     });
-                    this.changePagesValue(arr)
+                    this.changePagesValue(arr);
                 }
             },
             increasePages(pages) {
-                if (this.totalPagesSize > 6 && pages[pages.length - 1]+1 < this.totalPagesSize) {
+                if (this.totalPagesSize > 6 && pages[pages.length - 1] + 1 < this.totalPagesSize) {
                     let arr = pages.map(page => {
                         return page + 1
                     });
-                    this.changePagesValue(arr)
+                    this.changePagesValue(arr);
                 }
             },
         }

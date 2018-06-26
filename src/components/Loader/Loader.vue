@@ -10,11 +10,11 @@
 
 <script>
     export default {
-        name: "Loader",
+        name: 'Loader',
         data() {
             return {
                 keyPoints: [],
-                className: "point-"
+                className: 'point-'
             }
         },
         mounted() {
